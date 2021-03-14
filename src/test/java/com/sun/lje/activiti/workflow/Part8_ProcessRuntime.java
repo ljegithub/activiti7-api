@@ -1,6 +1,7 @@
 package com.sun.lje.activiti.workflow;
 
 import com.sun.lje.activiti.SecurityUtil;
+import org.activiti.api.model.shared.model.VariableInstance;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.builders.ProcessPayloadBuilder;
 import org.activiti.api.process.runtime.ProcessRuntime;
@@ -47,7 +48,7 @@ public class Part8_ProcessRuntime {
         ProcessInstance start = processRuntime.start(ProcessPayloadBuilder.start()
                 .withProcessDefinitionKey("Process_1")
                 .withName("第一个流程实例名称")
-                .withBusinessKey("自定义key").build());
+                .withBusinessKey("自定义BusinessKey").build());
 
     }
 
@@ -86,8 +87,18 @@ public class Part8_ProcessRuntime {
     // 流程实例参数
     @Test
     public void getVariables() {
+        List<VariableInstance> list = processRuntime.variables(ProcessPayloadBuilder
+        .variables()
+        .withProcessInstanceId("")
+        .build());
 
+        for (VariableInstance vi : list) {
+            System.out.println("" + vi.getName());
+            System.out.println("" + vi.getValue());
+            System.out.println("" + vi.getTaskId());
+            System.out.println("" + vi.getProcessInstanceId());
 
+        }
     }
 
 }
